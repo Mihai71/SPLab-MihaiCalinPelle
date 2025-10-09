@@ -1,19 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubChapter {
+public class SubChapter implements Element {
     private String name;
-    private List<Paragraph> paragraphs;
-    private List<Image> images;
-    private List<Table> tables;
-    private List<SubChapter> subChapters; // pentru sub-subcapitole
+    private List<Element> elements;
 
     public SubChapter(String name) {
         this.name = name;
-        this.paragraphs = new ArrayList<>();
-        this.images = new ArrayList<>();
-        this.tables = new ArrayList<>();
-        this.subChapters = new ArrayList<>();
+        this.elements = new ArrayList<>();
     }
 
     public String getName() {
@@ -25,51 +19,34 @@ public class SubChapter {
     }
 
     public void addParagraph(Paragraph paragraph) {
-        paragraphs.add(paragraph);
+        elements.add(paragraph);
     }
 
     public void addImage(Image image) {
-        images.add(image);
+        elements.add(image);
     }
 
     public void addTable(Table table) {
-        tables.add(table);
+        elements.add(table);
     }
 
     public void addSubChapter(SubChapter subChapter) {
-        subChapters.add(subChapter);
+        elements.add(subChapter);
     }
 
-    public List<Paragraph> getParagraphs() {
-        return paragraphs;
+    public void add(Element element) {
+        elements.add(element);
     }
 
-    public List<Image> getImages() {
-        return images;
+    public List<Element> getElements() {
+        return elements;
     }
 
-    public List<Table> getTables() {
-        return tables;
-    }
-
-    public List<SubChapter> getSubChapters() {
-        return subChapters;
-    }
-
+    @Override
     public void print() {
-        System.out.println(" Subchapter: " + name);
-
-        for (Paragraph p : paragraphs) {
-            p.print();
-        }
-        for (Image img : images) {
-            img.print();
-        }
-        for (Table t : tables) {
-            t.print();
-        }
-        for (SubChapter sc : subChapters) {
-            sc.print();
+        System.out.println("Subchapter: " + name);
+        for (Element e : elements) {
+            e.print();
         }
     }
 }
