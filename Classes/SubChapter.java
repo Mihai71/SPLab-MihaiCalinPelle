@@ -6,12 +6,14 @@ public class SubChapter {
     private List<Paragraph> paragraphs;
     private List<Image> images;
     private List<Table> tables;
+    private List<SubChapter> subChapters; // pentru sub-subcapitole
 
     public SubChapter(String name) {
         this.name = name;
         this.paragraphs = new ArrayList<>();
         this.images = new ArrayList<>();
         this.tables = new ArrayList<>();
+        this.subChapters = new ArrayList<>();
     }
 
     public String getName() {
@@ -34,6 +36,10 @@ public class SubChapter {
         tables.add(table);
     }
 
+    public void addSubChapter(SubChapter subChapter) {
+        subChapters.add(subChapter);
+    }
+
     public List<Paragraph> getParagraphs() {
         return paragraphs;
     }
@@ -46,8 +52,13 @@ public class SubChapter {
         return tables;
     }
 
+    public List<SubChapter> getSubChapters() {
+        return subChapters;
+    }
+
     public void print() {
         System.out.println(" Subchapter: " + name);
+
         for (Paragraph p : paragraphs) {
             p.print();
         }
@@ -56,6 +67,9 @@ public class SubChapter {
         }
         for (Table t : tables) {
             t.print();
+        }
+        for (SubChapter sc : subChapters) {
+            sc.print();
         }
     }
 }
