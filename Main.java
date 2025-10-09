@@ -1,6 +1,4 @@
-package Clase;
-
-public class main {
+public class Main {
     public static void main(String[] args) {
         Book noapteBuna = new Book("Noapte buna, copii!");
         Author rpGheo = new Author("Radu Pavel Gheo");
