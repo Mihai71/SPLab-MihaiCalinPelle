@@ -3,15 +3,13 @@ import java.util.List;
 
 public class Book {
     private String title;
-    private TableOfContents tableOfContents;
     private List<Author> authors;
-    private List<Chapter> chapters;
+    private List<Element> elements; // lista de elemente (Section, Paragraph, Image, Table, TableOfContents)
 
     public Book(String title) {
         this.title = title;
         this.authors = new ArrayList<>();
-        this.chapters = new ArrayList<>();
-        this.tableOfContents = new TableOfContents();
+        this.elements = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -26,30 +24,28 @@ public class Book {
         authors.add(author);
     }
 
-    public void addChapter(Chapter chapter) {
-        chapters.add(chapter);
-    }
-
     public List<Author> getAuthors() {
         return authors;
     }
 
-    public List<Chapter> getChapters() {
-        return chapters;
+    public List<Element> getElements() {
+        return elements;
     }
 
-    public TableOfContents getTableOfContents() {
-        return tableOfContents;
+    // metoda generica pentru a adauga orice element
+    public void addContent(Element element) {
+        elements.add(element);
     }
 
     public void print() {
         System.out.println("Book: " + title);
+
         for (Author a : authors) {
             a.print();
         }
-        tableOfContents.print();
-        for (Chapter c : chapters) {
-            c.print();
+
+        for (Element e : elements) {
+            e.print();
         }
     }
 }

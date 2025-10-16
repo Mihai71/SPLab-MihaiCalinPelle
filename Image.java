@@ -17,4 +17,19 @@ public class Image implements Element {
     public void print() {
         System.out.println("Image: " + imageName);
     }
+
+    @Override
+    public void add(Element e) {
+        throw new UnsupportedOperationException("Cannot add element to Image");
+    }
+
+    @Override
+    public void remove(Element e) {
+        throw new UnsupportedOperationException("Cannot remove element from Image");
+    }
+
+    @Override
+    public Element get(int index) {
+        throw new UnsupportedOperationException("Image has no child elements");
+    }
 }
