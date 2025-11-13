@@ -1,5 +1,6 @@
 public class Paragraph implements Element {
     private String text;
+    private AlignStrategy alignStrategy; // nou
 
     public Paragraph(String text) {
         this.text = text;
@@ -13,12 +14,20 @@ public class Paragraph implements Element {
         this.text = text;
     }
 
-    @Override
-    public void print() {
-        System.out.println("Paragraph: " + text);
+    // setăm strategia de aliniere din exterior
+    public void setAlignStrategy(AlignStrategy strategy) {
+        this.alignStrategy = strategy;
     }
 
-    // element simplu: nu poate avea copii
+    @Override
+    public void print() {
+        if (alignStrategy != null) {
+            alignStrategy.render(text);
+        } else {
+            System.out.println("Paragraph: " + text);
+        }
+    }
+
     @Override
     public void add(Element e) {
         throw new UnsupportedOperationException("Cannot add element to Paragraph");
