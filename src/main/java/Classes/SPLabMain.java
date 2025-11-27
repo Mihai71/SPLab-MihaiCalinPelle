@@ -9,7 +9,7 @@ public class SPLabMain {
         SpringApplication.run(SPLabMain.class, args);
         Book noapteBuna = new Book("Noapte buna, copii!");
         Author rpGheo = new Author("Radu Pavel","Gheo");
-        noapteBuna.addAuthor(rpGheo);
+        noapteBuna.setAuthor(rpGheo);
         Section cap1 = new Section("Capitolul 1");
         Section cap11 = new Section("Capitolul 1.1");
         Section cap111 = new Section("Capitolul 1.1.1");

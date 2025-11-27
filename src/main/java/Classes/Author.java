@@ -1,22 +1,42 @@
 package Classes;
 
-// Clasa care reprezinta un autor cu nume si prenume
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
 public class Author {
 
-    // Numele autorului
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    // Prenumele autorului
+    // Basic fields for author identity
+    private String name;
     private String surname;
 
-    // Constructor care initializeaza numele si prenumele
+    // One author can be linked to multiple books
+    @OneToMany(mappedBy = "author")
+    private List<Book> books;
+
+    // Empty constructor required by JPA
+    public Author() {}
+
+    // Convenience constructor for creating authors quickly
     public Author(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
 
-    // Metoda pentru afisarea autorului in consola
+    // Simple print method for debugging
     public void print() {
         System.out.println("Author: " + this.name + " " + this.surname);
     }
+
+    // Getters and setters
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public String getSurname() { return surname; }
+
+    public void setName(String name) { this.name = name; }
+    public void setSurname(String surname) { this.surname = surname; }
 }

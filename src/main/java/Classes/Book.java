@@ -1,64 +1,77 @@
 package Classes;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// Clasa care reprezinta o carte, implementand interfata Element
+@Entity
 public class Book implements Element {
 
-    // Titlul cartii
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // Basic book title
     private String title;
 
-    // Lista de autori ai cartii
-    private List<Author> authors = new ArrayList<>();
+    // Many books can belong to one author
+    @ManyToOne
+    private Author author;
 
-    // Continutul cartii (poate contine alte elemente)
+    // Transient list of elements (not stored in DB)
+    @Transient
     private List<Element> elements = new ArrayList<>();
 
-    // Constructor care initializeaza titlul
+    // Required empty constructor for JPA
+    public Book() {}
+
+    // Constructor used when creating a book manually
     public Book(String title) {
         this.title = title;
     }
 
-    // Adauga un autor la lista de autori
-    public void addAuthor(Author author) {
-        authors.add(author);
-    }
-
-    // Adauga un element la continutul cartii
+    // Adds an Element to the in-memory list
     public void addContent(Element element) {
         elements.add(element);
     }
 
-    // Afiseaza informatii despre carte si continutul sau
+    // Print method used for debugging or console output
     @Override
     public void print() {
         System.out.println("Book: " + title);
-        System.out.println("\nAuthors:");
-        for (Author a : authors) {
-            a.print();
+
+        // Print author if available
+        if (author != null) {
+            author.print();
         }
-        System.out.println(); // Linie goala
+
+        // Print all child elements
         for (Element e : elements) {
             e.print();
         }
     }
 
-    // Metoda din interfata Element pentru a adauga un element
+    // Composite pattern methods
     @Override
     public void add(Element e) {
         elements.add(e);
     }
 
-    // Metoda din interfata Element pentru a elimina un element
     @Override
     public void remove(Element e) {
         elements.remove(e);
     }
 
-    // Metoda din interfata Element pentru a obtine un element dupa index
     @Override
     public Element get(int index) {
         return elements.get(index);
     }
+
+    // Getters and setters
+    public Long getId() { return id; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public Author getAuthor() { return author; }
+    public void setAuthor(Author author) { this.author = author; }
 }
