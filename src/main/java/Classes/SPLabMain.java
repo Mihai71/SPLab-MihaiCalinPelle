@@ -2,7 +2,8 @@ package Classes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-@SpringBootApplication
+import org.springframework.context.annotation.Bean;
+@SpringBootApplication(scanBasePackages = {"Classes", "controller", "repository", "observer"})
 public class SPLabMain {
     public static void main(String[] args) {
 
@@ -24,6 +25,10 @@ public class SPLabMain {
         cap111.add(cap1111);
         cap1111.add(new Paragraph("Text from subchapter 1.1.1.1"));
         noapteBuna.print();
-    }
 
+    }
+    @Bean
+    public AllBooksSubject allBooksSubject() {
+        return new AllBooksSubject();
+    }
 }

@@ -5,28 +5,30 @@ import repository.BookRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/books")
 public class BookController {
 
-    // Repository-ul care gestioneaza operațiile pe carti
     private final BookRepository bookRepository;
+    private final AllBooksSubject allBooksSubject;
 
-    // Injectam repository-ul prin constructor
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, AllBooksSubject allBooksSubject) {
         this.bookRepository = bookRepository;
+        this.allBooksSubject = allBooksSubject;
     }
 
-    // GET /books → returneaza toate cartile din baza de date
-    @GetMapping
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
-    }
-
-    // POST /books → adauga o carte noua in baza de date
     @PostMapping
     public Book addBook(@RequestBody Book book) {
-        return bookRepository.save(book);
+        Book saved = bookRepository.save(book);
+
+        // AICI SE FACE NOTIFICAREA
+        allBooksSubject.notifyObservers(saved);
+
+        return saved;
+    }
+
+    @GetMapping
+    public List<Book> getAll() {
+        return bookRepository.findAll();
     }
 }
